@@ -10,6 +10,8 @@
 #include <system_error>
 #include <array>
 #include <conio.h>
+#include<stdio.h>
+#include<ctype.h>
 
 using namespace std;
 
@@ -155,11 +157,22 @@ void unePhrase(string a) {
 	char phrase[60];
 	for (unsigned int i = 0; i < a.length(); i++) {
 		phrase[i] = a[i];
-		if (isupper(phrase[i])) {
-			uneLettreMajuscule(phrase[i]);
+		if (isalpha(phrase[i])) {
+			if (isupper(phrase[i])) {
+				uneLettreMajuscule(phrase[i]);
+			}
+			else {
+				uneLettre(phrase[i]);
+			}
 		}
 		else {
-			uneLettre(phrase[i]);
+			if (isdigit(phrase[i])) {
+				uneLettre(phrase[i]);
+				cout << "number" << endl;
+			}
+			else {
+				uneLettreMajuscule(phrase[i]);
+			}
 		}
 		Sleep(45);
 	}
