@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Emulation.h"
-#include "MistplaySetUp.h"
 #include "OSRS_Amulette.h"
 #include "OSRS_Biere.h"
+#include <fstream>
 
 using namespace std;
 
@@ -12,29 +12,46 @@ using namespace std;
 //simpleClick();
 //longWait(1);
 
-void ToggleArret() {
-	
+string OpenFile(string nomFichier) {
+	char x;
+	string sum = "";
+	ifstream inFile;
+	inFile.open(nomFichier);
+	if (!inFile) {
+		cerr << "Unable to open file " << nomFichier << "\n";
+		exit(1);   // call system to stop
+	}
+	string directory;
+	const size_t last_slash_idx = nomFichier.rfind('\\');
+	if (std::string::npos != last_slash_idx)
+	{
+		directory = nomFichier.substr(0, last_slash_idx);
+		cout << directory << endl;
+	}
+	while (inFile >> std::noskipws >> x) {
+		sum = sum + x;
+	}
+
+	inFile.close();
+	cout << "txt file read" << endl;
+	return sum;
 }
 
 int main() {
+
 	while (true) {
-		//LoopViderBiere(0, 4);
-		CircuitCompletAmulette(true);
 		
+		if (GetAsyncKeyState(VK_RIGHT)) {
+			cout << "lets begin" << endl;
+			Sleep(2500);
+			
+			do {
 
+				unePhrase(OpenFile("C:\\Users\\e2095138\\Documents\\code\\projetperso-emulation\\test.txt"));
 
-
-		//if (GetAsyncKeyState(VK_RIGHT)) {
-		//	cout << "lets begin" << endl;
-		//	Sleep(2500);
-		//	
-		//	do {
-		//		simpleClick();
-		//		randomTime(20);
-
-		//	} while (!GetAsyncKeyState(VK_LEFT));
-		//}
-		//
+			} while (!GetAsyncKeyState(VK_LEFT));
+		}
+		
 		afficherPosCurseur();
 
 		if (GetAsyncKeyState(VK_LEFT)) { // Exit
