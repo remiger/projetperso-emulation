@@ -3,6 +3,7 @@
 #include <fstream>
 #include <filesystem>
 
+string g_texteLu = "";
 const char SYMBOLESSPECIAUX[] = { '!', '@', '#','$','%','^','&','*','(',')','?',':', '"', '{', '}', '|', '<', '>' };
 
 void ListeFichiersRepository(string pathToDirectory) {
@@ -10,48 +11,51 @@ void ListeFichiersRepository(string pathToDirectory) {
 		std::cout << entry.path() << std::endl;
 }
 
-// Press votre touche definiee pour commencer
+// Press right arrow pour pauser
 // file name must include .txt et le path avec double backslash '\\'
-string EmulerTypeTxtFile(string nomFichier, int tempsEntreLettres) {
+string EmulerTypeTxtFile(string nomFichier, int tempsEntreLettres, string texteDejaEcrit) {
 	char x;
-	char previouschar;
 	string sum = "";
 	ifstream inFile;
 	inFile.open(nomFichier);
+
+	// si ne trouve pas de fichier txt lisible
 	if (!inFile) {
 		cerr << "Unable to open file " << nomFichier << "\n";
 		exit(1);   // call system to stop
 	}
 
+	// si le fichier txt est lisible
+	std::cout << "txt file opened" << endl;
 	while (inFile >> std::noskipws >> x) {
 		bool normal = true;
-		previouschar = x;
+		sum = sum + x;
 
-		// Verifier si symboles
-		for (size_t i = 0; i < strlen(SYMBOLESSPECIAUX); i++) {
-			if (x == SYMBOLESSPECIAUX[i]) {
-				cout << SYMBOLESSPECIAUX[i] << endl;
-				cout << x;
-				uneLettreMajuscule(SYMBOLESSPECIAUX[i]);
-				normal = false;
+		// si on est rendu a ce char dans le string total
+		if (sum.length() > texteDejaEcrit.length()) {
+			// Verifier si symboles
+			for (size_t i = 0; i < strlen(SYMBOLESSPECIAUX); i++) {
+				if (x == SYMBOLESSPECIAUX[i]) {
+					cout << SYMBOLESSPECIAUX[i] << endl;
+					cout << x;
+					uneLettreMajuscule(SYMBOLESSPECIAUX[i]);
+					normal = false;
+				}
+			}
+
+			// Si pas de symbole
+			if (normal) {
+				string s(1, x);
+				unePhrase(s, tempsEntreLettres);
 			}
 		}
 
-		// Si pas de symbole
-		if (normal) {
-			string s(1, x);
-			unePhrase(s, tempsEntreLettres);
-		}
 
-
-		sum = sum + x;
 		if (GetAsyncKeyState(VK_RIGHT)) {
-			inFile.close();
-			exit(1);
+			break;
 		}
 	}
-
 	inFile.close();
-	std::cout << "txt file read" << endl;
+	std::cout << "txt file closed" << endl;
 	return sum;
 }
