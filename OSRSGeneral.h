@@ -53,7 +53,7 @@ void AjusterQuantiteARetirer(string nouvelleQte) {
 	PlacerCurseurEtAttendre(BANQUEPOSXDEPART, BANQUEPOSYDEPART, 700, false);
 	PlacerCurseurEtAttendre(BANQUEPOSXDEPART, (BANQUEPOSYDEPART + 90), 500, true);
 	Sleep(1000);
-	unePhrase(nouvelleQte);
+	unePhrase(nouvelleQte, 50);
 	enter();
 	Sleep(500);
 	DepositAllItemsBank();

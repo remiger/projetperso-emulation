@@ -153,7 +153,7 @@ void tagger(string phrase, string nom) {
 }
 
 //Simule une phrase
-void unePhrase(string a) {
+void unePhrase(string a, int msDelayLettres) {
 	char phrase[60];
 	for (unsigned int i = 0; i < a.length(); i++) {
 		phrase[i] = a[i];
@@ -166,15 +166,9 @@ void unePhrase(string a) {
 			}
 		}
 		else {
-			if (isdigit(phrase[i])) {
-				uneLettre(phrase[i]);
-				cout << "number" << endl;
-			}
-			else {
-				uneLettreMajuscule(phrase[i]);
-			}
+			uneLettre(phrase[i]);
 		}
-		Sleep(45);
+		Sleep(msDelayLettres);
 	}
 }
 
