@@ -154,19 +154,19 @@ void tagger(string phrase, string nom) {
 
 //Simule une phrase
 void unePhrase(string a, int msDelayLettres) {
-	char phrase[60];
+	
 	for (unsigned int i = 0; i < a.length(); i++) {
-		phrase[i] = a[i];
-		if (isalpha(phrase[i])) {
-			if (isupper(phrase[i])) {
-				uneLettreMajuscule(phrase[i]);
+		
+		if (isalpha(a[i])) {
+			if (isupper(a[i])) {
+				uneLettreMajuscule(a[i]);
 			}
 			else {
-				uneLettre(phrase[i]);
+				uneLettre(a[i]);
 			}
 		}
 		else {
-			uneLettre(phrase[i]);
+			uneLettre(a[i]);
 		}
 		Sleep(msDelayLettres);
 	}

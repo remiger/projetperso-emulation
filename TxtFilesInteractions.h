@@ -3,7 +3,7 @@
 #include <fstream>
 #include <filesystem>
 
-string g_texteLu = "";
+int g_texteLu = 0;
 const char SYMBOLESSPECIAUX[] = { '!', '@', '#','$','%','^','&','*','(',')','?',':', '"', '{', '}', '|', '<', '>' };
 
 void ListeFichiersRepository(string pathToDirectory) {
@@ -13,9 +13,9 @@ void ListeFichiersRepository(string pathToDirectory) {
 
 // Press right arrow pour pauser
 // file name must include .txt et le path avec double backslash '\\'
-string EmulerTypeTxtFile(string nomFichier, int tempsEntreLettres, string texteDejaEcrit) {
+int EmulerTypeTxtFile(string nomFichier, int tempsEntreLettres, int texteDejaEcrit) {
 	char x;
-	string sum = "";
+	int sum = 0;
 	ifstream inFile;
 	inFile.open(nomFichier);
 
@@ -29,15 +29,12 @@ string EmulerTypeTxtFile(string nomFichier, int tempsEntreLettres, string texteD
 	std::cout << "txt file opened" << endl;
 	while (inFile >> std::noskipws >> x) {
 		bool normal = true;
-		sum = sum + x;
-
+		sum++;
 		// si on est rendu a ce char dans le string total
-		if (sum.length() > texteDejaEcrit.length()) {
+		if (sum > texteDejaEcrit) {
 			// Verifier si symboles
 			for (size_t i = 0; i < strlen(SYMBOLESSPECIAUX); i++) {
 				if (x == SYMBOLESSPECIAUX[i]) {
-					cout << SYMBOLESSPECIAUX[i] << endl;
-					cout << x;
 					uneLettreMajuscule(SYMBOLESSPECIAUX[i]);
 					normal = false;
 				}
@@ -52,6 +49,7 @@ string EmulerTypeTxtFile(string nomFichier, int tempsEntreLettres, string texteD
 
 
 		if (GetAsyncKeyState(VK_RIGHT)) {
+			cout << "pressed arrow right" << endl;
 			break;
 		}
 	}
