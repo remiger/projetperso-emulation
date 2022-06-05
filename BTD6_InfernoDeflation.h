@@ -5,25 +5,27 @@
 #include <stdlib.h>
 
 void InfernoDeflation() {
-	PlacerMonkey('a', 0, 3, 2, 660, 306);
+	sourisScrollDown(1370, 502, 234);
+
+	PlacerMonkeySouris(1374, 683, 0, 3, 2, false, 652, 297);
 	Sleep(400);
-	PlacerMonkey('a', 0, 3, 2, 658, 561);
+	PlacerMonkeySouris(1374, 683, 0, 3, 2, false, 655, 562);
 	Sleep(400);
-	PlacerMonkey('x', 2, 0, 4, 350, 639);
+	PlacerMonkeySouris(1370, 359, 2, 0, 4, false, 350, 639);
 	Sleep(400);
-	PlacerMonkey('x', 2, 0, 4, 949, 207);
-	Sleep(400);
-	PlacerMonkey('q', 0, 0, 2, 356, 216);
-	Sleep(400);
-	
-	uneLettre(' ');
-	Sleep(200);
-	uneLettre(' ');
-	Sleep(200);
+	PlacerMonkeySouris(1370, 359, 2, 0, 4, true, 949, 207);
+	Sleep(1400);
+
+	// Play fforward
+	SetCursorPos(1470, 810);
+	simpleClick();
+	Sleep(1000);
+	simpleClick();
+	Sleep(1000);
 
 	// Mettre curseur zone vide
 	SetCursorPos(668, 127);
-	for (int i = 0; i < 400; i++) {
+	for (int i = 0; i < 372; i++) {
 		Sleep(1000);
 		simpleClick();
 		if (GetAsyncKeyState(VK_LEFT)) {
