@@ -21,24 +21,49 @@ void UpgradePaths(int pathOne, int pathTwo, int pathThree) {
 	}
 }
 
-void UpgradePathsSouris(bool droite, int pathOne, int pathTwo, int pathThree) {
-	droite ? SetCursorPos(276, 388) : SetCursorPos(1255, 397);
-	for (int i = 0; i < pathOne; i++) {
-		simpleClick();
-		Sleep(100);
-		randomTime(50);
+void UpgradeUnPath(int nomPath) {
+	if (nomPath > 0) {
+		Sleep(40);
 	}
-	droite ? SetCursorPos(274, 518) : SetCursorPos(1244, 512);
-	for (int i = 0; i < pathTwo; i++) {
+	for (int i = 0; i < nomPath; i++) {
 		simpleClick();
-		Sleep(100);
-		randomTime(50);
+		Sleep(30);
+		randomTime(3);
 	}
-	droite ? SetCursorPos(272, 638) : SetCursorPos(1248, 634);
-	for (int i = 0; i < pathThree; i++) {
+}
+
+void UpgradePathsSouris(bool gauche, int pathOne, int pathTwo, int pathThree) {
+	gauche ? SetCursorPos(276, 388) : SetCursorPos(1255, 397);
+	UpgradeUnPath(pathOne);
+	gauche ? SetCursorPos(274, 518) : SetCursorPos(1244, 512);
+	UpgradeUnPath(pathTwo);
+	gauche ? SetCursorPos(272, 638) : SetCursorPos(1248, 634);
+	UpgradeUnPath(pathThree);
+}
+
+// 0: first, 1: last, 2: close, 3: strong
+void AjusterCible(bool gauche, int target) {
+	switch (target) {
+	case 0:
+		break;
+	case 1:
+		gauche ? SetCursorPos(287, 302) : SetCursorPos(1266, 304);
 		simpleClick();
-		Sleep(100);
-		randomTime(50);
+		Sleep(30);
+		break;
+	case 2:
+		gauche ? SetCursorPos(287, 302) : SetCursorPos(1266, 304);
+		simpleClick();
+		Sleep(30);
+		simpleClick();
+		Sleep(30);
+		break;
+	case 3:
+		gauche ? SetCursorPos(72, 300) : SetCursorPos(1044, 302);
+		simpleClick();
+		Sleep(30);
+	default:
+		break;
 	}
 }
 
@@ -53,7 +78,7 @@ void PlacerMonkey(char lettreMonkey, int pathOne, int pathTwo, int pathThree, in
 	UpgradePaths(pathOne, pathTwo, pathThree);
 }
 
-void PlacerMonkeySouris(int posXDepart, int posYDepart, int pathOne, int pathTwo, int pathThree, bool droite, int posX, int posY) {
+void PlacerMonkeySouris(int posXDepart, int posYDepart, int pathOne, int pathTwo, int pathThree, bool gauche, int posX, int posY) {
 	// glisser
 	/*int distScrollRight = posXDepart - posX;
 	sourisScrollRight(posXDepart, posYDepart, distScrollRight);
@@ -69,25 +94,29 @@ void PlacerMonkeySouris(int posXDepart, int posYDepart, int pathOne, int pathTwo
 	}*/
 
 	SetCursorPos(posXDepart, posYDepart);
-	Sleep(300);
-	simpleClick();
-	Sleep(400);
+	sendLMouseDown();
+	Sleep(30);
 	
 	SetCursorPos(posX, posY);
-	Sleep(500);
+	Sleep(30);
+	sendLMouseUp();
+	Sleep(30);
 	simpleClick();
-	Sleep(400);
 
-	simpleClick();
-	Sleep(1000);
+	if (pathOne > 0 || pathTwo > 0 || pathThree > 0) {
+		simpleClick();
+		Sleep(80);
+	}
 	if (GetAsyncKeyState(VK_LEFT)) {
 		exit(1);
 	}
 
-	UpgradePathsSouris(droite, pathOne, pathTwo, pathThree);
+	UpgradePathsSouris(gauche, pathOne, pathTwo, pathThree);
 	if (GetAsyncKeyState(VK_LEFT)) {
 		exit(1);
 	}
+
+	Sleep(60);
 }
 
 void QuitterNiveau() {

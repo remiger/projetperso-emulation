@@ -55,6 +55,14 @@ void sendKeyUp(unsigned char keyCode)
 	SendInput(1, &input, sizeof(INPUT));
 }
 
+void sendLMouseDown() {
+	mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+}
+
+void sendLMouseUp() {
+	mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+}
+
 //Shift qqch ou le qqch est a (parametre)
 void symbolWShift(int a) {
 	sendKeyDown(VK_SHIFT);
@@ -208,32 +216,32 @@ void afficherPosCurseur() {
 
 void sourisMonter(int x, int y, int howBigYouMove) {
 	SetCursorPos(x, y);
-	for (int i = 0; i < howBigYouMove; i++) {
-		Sleep(10);
+	for (int i = 0; i < howBigYouMove; i += 5) {
+		Sleep(1);
 		SetCursorPos(x, y - i);
 	}
 }
 
 void sourisDescendre(int x, int y, int howBigYouMove) {
 	SetCursorPos(x, y);
-	for (int i = 0; i < howBigYouMove; i++) {
-		Sleep(10);
+	for (int i = 0; i < howBigYouMove; i += 5) {
+		Sleep(1);
 		SetCursorPos(x, y + i);
 	}
 }
 
 void sourisDroite(int x, int y, int howBigYouMove) {
 	SetCursorPos(x, y);
-	for (int i = 0; i < howBigYouMove; i++) {
-		Sleep(10);
+	for (int i = 0; i < howBigYouMove; i += 5) {
+		Sleep(1);
 		SetCursorPos(x + i, y);
 	}
 }
 
 void sourisGauche(int x, int y, int howBigYouMove) {
 	SetCursorPos(x, y);
-	for (int i = 0; i < howBigYouMove; i++) {
-		Sleep(10);
+	for (int i = 0; i < howBigYouMove; i += 5) {
+		Sleep(1);
 		SetCursorPos(x - i, y);
 	}
 }
