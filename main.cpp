@@ -1,26 +1,33 @@
 #pragma once
 
 #include "Emulation.h"
-#include "OSRS_Amulette.h"
-#include "OSRS_Biere.h"
-#include "TxtFilesInteractions.h"
-
-extern int g_texteLu;
+//#include "MistplaySetUp.h"
+//#include "OSRS_Amulette.h"
+//#include "OSRS_Biere.h"
+#include "BTD6.h"
+#include "BTD6_InfernoDeflation.h"
+#include "clock.h"
 
 using namespace std;
 
 
 int main() {
-	int total = 0;
 	while (true) {
+		if (GetAsyncKeyState(VK_RIGHT)) {
+			cout << "lets begin" << endl;
 
-		
-		if (GetAsyncKeyState(VK_LEFT)) {
-			total = EmulerTypeTxtFile("C:\\Remi\\Code\\PC\\projetperso-emulation\\BeeMovie.txt", 50, total);
+			do {
+
+				ChoisirNiveau(3, 0, 3, 0);
+				InfernoDeflation();
+
+
+			} while (!GetAsyncKeyState(VK_LEFT));
 		}
-		// afficherPosCurseur();
+		//
+		afficherPosCurseur();
 
-		if (GetAsyncKeyState(VK_DOWN)) { // Exit
+		if (GetAsyncKeyState(VK_UP)) { // Exit
 			return 0;
 		}
 	}

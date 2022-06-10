@@ -10,8 +10,10 @@
 #include <system_error>
 #include <array>
 #include <conio.h>
-#include<stdio.h>
-#include<ctype.h>
+#include <stdio.h>
+#include <time.h>
+#include <math.h>
+#include <ctype.h>
 
 using namespace std;
 
@@ -216,7 +218,7 @@ void afficherPosCurseur() {
 
 void sourisMonter(int x, int y, int howBigYouMove) {
 	SetCursorPos(x, y);
-	for (int i = 0; i < howBigYouMove; i += 5) {
+	for (int i = 0; i < howBigYouMove; i += 10) {
 		Sleep(1);
 		SetCursorPos(x, y - i);
 	}

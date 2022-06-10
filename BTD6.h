@@ -62,6 +62,7 @@ void AjusterCible(bool gauche, int target) {
 		gauche ? SetCursorPos(72, 300) : SetCursorPos(1044, 302);
 		simpleClick();
 		Sleep(30);
+		break;
 	default:
 		break;
 	}
@@ -79,44 +80,45 @@ void PlacerMonkey(char lettreMonkey, int pathOne, int pathTwo, int pathThree, in
 }
 
 void PlacerMonkeySouris(int posXDepart, int posYDepart, int pathOne, int pathTwo, int pathThree, bool gauche, int posX, int posY) {
-	// glisser
-	/*int distScrollRight = posXDepart - posX;
-	sourisScrollRight(posXDepart, posYDepart, distScrollRight);
-	Sleep(100);
+	// timestamp debut
+	clock_t start = clock();
 
-	if (posYDepart > posY) {
-		int distY = posYDepart - posY;
-		sourisScrollDown(posX, posYDepart, distY);
-	}
-	else {
-		int distY = posY - posYDepart;
-		sourisScrollUp(posX, posYDepart, distY);
-	}*/
-
+	// choisir monke
 	SetCursorPos(posXDepart, posYDepart);
 	sendLMouseDown();
 	Sleep(30);
 	
+	// positionner monke on map
 	SetCursorPos(posX, posY);
 	Sleep(30);
 	sendLMouseUp();
 	Sleep(30);
 	simpleClick();
 
+	// click monke if upgrade needed
 	if (pathOne > 0 || pathTwo > 0 || pathThree > 0) {
 		simpleClick();
 		Sleep(80);
 	}
+
+	// abort if needed
 	if (GetAsyncKeyState(VK_LEFT)) {
 		exit(1);
 	}
 
 	UpgradePathsSouris(gauche, pathOne, pathTwo, pathThree);
+
+	// abort if needed
 	if (GetAsyncKeyState(VK_LEFT)) {
 		exit(1);
 	}
 
 	Sleep(60);
+
+	// timestamp fin
+	clock_t end = clock();
+	double cpu_time_used = ((double)(double(end) - double(start))) / CLOCKS_PER_SEC;
+	cout << "monkey place en " << cpu_time_used << "s\n";
 }
 
 void QuitterNiveau() {
